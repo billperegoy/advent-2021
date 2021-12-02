@@ -3,6 +3,6 @@ defmodule Day01Test do
   doctest Day01
 
   test "run/0" do
-    assert Day01.run() == :world
+    assert Day01.run() == 1184
   end
 end

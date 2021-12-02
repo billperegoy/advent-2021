@@ -1,15 +1,15 @@
 defmodule Day01 do
   def run do
-    Enum.reduce(data(), %{count: 0, last: nil}, fn elem, %{count: count, last: last} ->
-      if last do
+    Enum.reduce(data(), %{count: 0, last: nil}, fn
+      elem, %{count: count, last: nil} ->
+        %{count: count, last: elem}
+
+      elem, %{count: count, last: last} ->
         if elem > last do
           %{count: count + 1, last: elem}
         else
           %{count: count, last: elem}
         end
-      else
-        %{count: count, last: elem}
-      end
     end)
     |> Map.get(:count)
   end
