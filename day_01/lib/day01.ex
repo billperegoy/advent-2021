@@ -1,6 +1,25 @@
 defmodule Day01 do
-  def run do
-    Enum.reduce(data(), %{count: 0, last: nil}, fn
+  def part_2 do
+    data = data()
+
+    data
+    |> Enum.with_index()
+    |> Enum.flat_map(fn {elem, i} ->
+      if Enum.at(data, i + 2) do
+        [Enum.at(data, i) + Enum.at(data, i + 1) + Enum.at(data, i + 2)]
+      else
+        []
+      end
+    end)
+    |> run()
+  end
+
+  def part_1 do
+    run(data())
+  end
+
+  defp run(data) do
+    Enum.reduce(data, %{count: 0, last: nil}, fn
       elem, %{count: count, last: nil} ->
         %{count: count, last: elem}
 
