@@ -1,5 +1,5 @@
 defmodule Day02 do
-  def run do
+  def part_1 do
     result =
       Enum.reduce(data(), %{depth: 0, position: 0}, fn input_str,
                                                        %{depth: depth, position: position} ->
@@ -13,6 +13,30 @@ defmodule Day02 do
           "forward" -> %{depth: depth, position: position + value}
           "up" -> %{depth: depth - value, position: position}
           "down" -> %{depth: depth + value, position: position}
+        end
+      end)
+
+    result.depth * result.position
+  end
+
+  def part_2 do
+    result =
+      Enum.reduce(data(), %{aim: 0, depth: 0, position: 0}, fn input_str,
+                                                               %{
+                                                                 aim: aim,
+                                                                 depth: depth,
+                                                                 position: position
+                                                               } ->
+        line = Regex.named_captures(~r/(?<command>\w+)\s+(?<value>\d+)/, input_str)
+
+        {value, ""} = Integer.parse(line["value"])
+
+        command = line["command"]
+
+        case command do
+          "forward" -> %{aim: aim, depth: depth + aim * value, position: position + value}
+          "up" -> %{aim: aim - value, depth: depth, position: position}
+          "down" -> %{aim: aim + value, depth: depth, position: position}
         end
       end)
 
